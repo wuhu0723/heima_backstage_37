@@ -1,17 +1,17 @@
 <template>
   <div class="login">
     <div class="container">
-      <img src="../assets/avatar.jpg" alt="" class="avatar">
+      <img src="../assets/avatar.jpg" alt class="avatar" />
       <el-form :model="loginForm" :rules="rules" ref="loginForm" class="demo-ruleForm">
         <el-form-item label prop="username">
-          <el-input prefix-icon="icon-user-check" v-model="loginForm.username" placeholder='请输入用户名'></el-input>
+          <el-input prefix-icon="icon-user-check" v-model="loginForm.username" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <el-form-item label prop="password">
-          <el-input prefix-icon="icon-key" v-model="loginForm.password" placeholder='请输入密码'></el-input>
+          <el-input prefix-icon="icon-key" v-model="loginForm.password" placeholder="请输入密码"></el-input>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" class="login-btn" @click='login'>登陆</el-button>
+          <el-button type="primary" class="login-btn" @click="login">登陆</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -24,8 +24,8 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: '10086',
+        password: '123'
       },
       rules: {
         username: [
@@ -53,11 +53,20 @@ export default {
     //   实现登陆
     login () {
       // 再次验证用户数据是否输入合法，如果输入合法，则发起登陆验证的请求，否则给出提示并终止本次请求
-      this.$refs.loginForm.validate(async (valid) => {
+      //   如果vliad为true，则说明通过了合法性的校验，否则不通过
+      // 只有return false才会终止本次请求
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           // 发起登陆请求
           let res = await login(this.loginForm)
           console.log(res)
+          if (res.status === 200 && res.data.message === '登录成功') {
+            localStorage.setItem('heima_backstage_37_token', res.data.data.token)
+            // 跳转到首页
+            this.$router.push({ name: 'Index' })
+          } else if (res.status === 200 && res.data.statusCode === 401) {
+            this.$message.error('登陆失败')
+          }
         } else {
           this.$message.warning('数据输入不合法')
           return false

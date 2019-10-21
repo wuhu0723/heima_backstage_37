@@ -5,6 +5,8 @@ import VueRouter from 'vue-router'
 
 // 引入组件
 import Login from '@/pages/login.vue'
+import Index from '@/pages/index.vue'
+import Welcome from '@/pages/welcome.vue'
 // 3.use
 Vue.use(VueRouter)
 
@@ -17,8 +19,32 @@ const router = new VueRouter({
       name: 'Login',
       path: '/login',
       component: Login
+    },
+    {
+      name: 'Index',
+      path: '/index',
+      component: Index,
+      // 添加重定向,自动的加载重定向所设置的路由所映射的组件
+      redirect: { name: 'Welcome' },
+      children: [
+        {
+          name: 'Welcome',
+          path: 'wel',
+          component: Welcome
+        }
+      ]
     }
   ]
+})
+
+// 添加导航守卫--路由守卫
+router.beforeEach((to, from, next) => {
+  let token = localStorage.getItem('heima_backstage_37_token')
+  if (token || to.path === '/login') {
+    next()
+  } else {
+    next({ name: 'Login' })
+  }
 })
 
 // 7.导出
