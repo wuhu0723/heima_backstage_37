@@ -31,7 +31,7 @@
               <i class="el-icon-star-off"></i>
               <span>文章列表</span>
             </el-menu-item>
-            <el-menu-item index="2-2">
+            <el-menu-item index="postAdd">
               <i class="el-icon-setting"></i>
               <span>文章发布</span>
             </el-menu-item>
