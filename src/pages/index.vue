@@ -27,7 +27,7 @@
               <i class="el-icon-location"></i>
               <span>文章管理</span>
             </span>
-            <el-menu-item index="/login">
+            <el-menu-item index="postlist">
               <i class="el-icon-star-off"></i>
               <span>文章列表</span>
             </el-menu-item>

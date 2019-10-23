@@ -7,6 +7,7 @@ import VueRouter from 'vue-router'
 import Login from '@/pages/login.vue'
 import Index from '@/pages/index.vue'
 import Welcome from '@/pages/welcome.vue'
+import PostList from '@/pages/postList.vue'
 // 3.use
 Vue.use(VueRouter)
 
@@ -22,7 +23,7 @@ const router = new VueRouter({
     },
     {
       name: 'Index',
-      path: '/index',
+      path: '/',
       component: Index,
       // 添加重定向,自动的加载重定向所设置的路由所映射的组件
       redirect: { name: 'Welcome' },
@@ -31,6 +32,11 @@ const router = new VueRouter({
           name: 'Welcome',
           path: 'wel',
           component: Welcome
+        },
+        {
+          name: 'PostList',
+          path: 'postlist',
+          component: PostList
         }
       ]
     }

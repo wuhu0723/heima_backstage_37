@@ -8,6 +8,8 @@ import router from '@/router/index.js'
 
 Vue.use(ElementUI)
 
+// 配置当前是处于开发阶段
+// development   production
 Vue.config.productionTip = false
 
 new Vue({
